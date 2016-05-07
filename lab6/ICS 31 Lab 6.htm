@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!-- saved from url=(0051)http://www.ics.uci.edu/~kay/courses/31/hw/lab6.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="GENERATOR" content="Globetrotter 1.1.1">
+<meta http-equiv="UPDATED" content="Tuesday, November 22, 2005 9:30 AM">
+<title>ICS 31 Lab 6</title>
+<meta http-equiv="X-GLOBETROTTERDATA" content="33CB8976">
+<meta http-equiv="DESCRIPTION" content="Homework Assignments for Informatics 41, the Informatics Core Course, using How to Design Programs by Felleisen, Findler, Flatt, and Krishnamurthi and Fluency by Snyder, at UC Irvine.">
+<meta http-equiv="COPYRIGHT" content="Copyright © 2001-2004 by David G. Kay.  All rights reserved.">
+<link href="./ICS 31 Lab 6_files/mainstyle.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+<p><font size="2">ICS 31 • DAVID G. KAY • UC IRVINE • FALL 2012</font></p>
+<p><font size="6"><b>Lab Assignment 6 </b></font>
+</p>
+<p><font>This assignment is due at the end of lab on Friday, November 9.</font></p>
+<p><font><strong>Preparation</strong></font> (Do this part individually, before coming to lab)</p>
+<p><font><strong>(1) </strong></font>Read  sections 4.3, 4.4, and 4.5 in the textbook and do the practice problems. These sections cover file processing (and the new kinds of errors that can occur when we work with files).</p>
+<p><strong>(2)</strong> Then read sections 5.1, 5.2, 5.4, 5.5, and 5.6 and do the practice problems (except 5.11, which is totally optional). These sections fill out our coverage of control structures.</p>
+<p><strong>(3) </strong>Do Exercises 5.12 and 5.18. Everyone should be able to do these independently.</p>
+<p>&nbsp;</p>
+<p><font><strong>Lab Work</strong></font> (Do this part with your partner in lab)</p>
+<p><strong>(a)</strong> Choose a partner for this assignment and make sure the TA knows who your partner is. Remember that you'll choose a different partner for each lab assignment, so you'll work with this partner only this week. Make sure you know your partner's name (first and last) and contact information (Email or cellphone or whatever) in case one of you can't make it to lab.</p>
+<p><strong>(b)</strong> Prepare your <code>lab6.py</code> file as in previous labs, including a line like this: </p>
+<pre>#  Paula Programmer 11223344 and Andrew Anteater 44332211.  ICS 31 Lab sec 7.  Lab asst 6.
+</pre>
+<p><strong>(c)</strong> From last week's Emailed class notes, copy the craps-playing code to your machine and run it to make sure it works in your environment.</p>
+<p>Modify your program so that it counts how many of each roll (2 through 12) are thrown and prints out statistics at the end in the following form:</p>
+<pre>Distribution of dice rolls
+
+ 2:    55 ( 2.8%)  **
+ 3:   129 ( 6.5%)  ******
+ 4:   162 ( 8.1%)  ********
+ 5:   215 (10.8%)  **********
+ 6:   279 (14.0%)  *************
+ 7:   341 (17.1%)  *****************
+ 8:   271 (13.6%)  *************
+ 9:   210 (10.5%)  **********
+10:   168 ( 8.4%)  ********
+11:   112 ( 5.6%)  *****
+12:    58 ( 2.9%)  **
+-----------------
+     2000 rolls
+</pre>
+<p>Here are some details: You'll need a list of numbers for counting each of the possible rolls; think about an easy way to get to the tally for roll <em>n </em>(it's not good to have 11 separate variables, <code>count2s</code>, <code>count3s</code>, <code>count4s</code>,  and so on). The histogram above shows 2000 rolls and is scaled to print one star per 20 rolls (1%); you may choose to scale differently. To get a good distribution, you'll want more rolls than you'll probably want to play interactively; it's okay to have a separate function that just calls the dice-rolling function a specified number of times.</p>
+<p><strong>(d) </strong><strong>Cryptography</strong> is the science of secret writing—messages that
+other people can't understand unless they have a secret <strong>key</strong>.
+Diplomats and generals have used cryptography for thousands of years; e-commerce
+uses it today for secure web transactions.
+We can <strong>encrypt</strong> a message and then send it (even by means that
+might reveal the encrypted message to unauthorized parties) to someone authorized;
+if that person has the key, he or she
+can easily <strong>decrypt</strong> it.  (There are also techniques that an
+unauthorized person can use to try to "break" the encryption and read the
+message without the key.  That's called <strong>cryptanalysis</strong> or
+codebreaking.  There are many different ways of encrypting messages; some
+are more susceptible to cryptanalysis than others.)</p>
+<p>A <strong>cipher</strong> is one category of encryption methodology.
+  Ciphers take characters in the message and transform them into other
+  characters.  One kind of simple cipher is a <strong>substitution cipher</strong>,
+  for example substituting 'b' for each 'a', 'c' for each 'b', and so on;
+  in this cipher, "cat" would become "dbu".
+  (We can contrast ciphers with <strong>codes</strong>; the
+  technical distinction is that codes work with words or phrases, at
+  the level of meaning.  In World War II, the US Army used soldiers
+  who spoke the Navajo language to transmit messages over the radio;
+  none of the opponents could understand Navajo (or even recognize
+  what language it was).  That's a code.)  Computational encryption
+employs ciphers.</p>
+
+<p>A <strong>Caesar cipher</strong> (named after Roman emperor
+Julius Caesar, who is said to have originated it) works like the
+example described above.  Each letter in the original message
+(called the <strong>plaintext</strong>) is changed to a different
+letter.  The example above ('a' becomes 'b', 'b' becomes 'c', and
+so on) is one example; we could say its key is 1, because each letter
+moves 1 position later in the alphabet.  There are 26 possible
+Caesar ciphers (one of which doesn't change the plaintext message).
+The encrypted message is called the <strong>ciphertext</strong>.
+So encrypting the message "hi there" with a Caesar cipher whose key is 3 would give the ciphertext "kl wkhuh".
+</p><p><strong>(d.1) </strong>Write the two functions <code>Caesar_encrypt</code> and
+  <code>Caesar_decrypt</code>.  Each takes two arguments:
+  a string containing the message (the plaintext for encryption,
+  the ciphertext for decryption) and an int for the key,
+  indicating how far down the alphabet to find each substitute letter.
+  The encryption function returns the ciphertext;
+  the decryption function returns the plaintext.
+  
+</p><p>As always, follow the design recipe.  In particular
+  make up enough examples to test both your understanding
+  of the functions' behavior and the match between your
+  code and that behavior.  Here are two more details:
+  In the plaintext, turn any upper-case letters into
+  lower-case letters.  In both the plaintext and the
+  ciphertext, leave non-letters unchanged.
+  
+</p><p>With the right tools, each function can be written in two lines of
+  code (plus function headers and docstrings).  Think for
+  a while about how to write this; if you're still stuck,
+  you may wish to consult these hints (one at a time):
+  (i) It's convenient to have a
+  global constant called <code>ALPHABET</code> that contains
+  all 26 lower-case letters in order.  (ii) To do the work,
+  you'll want to use the <code>translate()</code> method;
+  look it up to make sure you understand how to use it.
+  Seeing what arguments it takes may suggest some of the
+  things you need to compute.
+  (iii) It would also be convenient to have a function that
+  takes a number and produces a "rotated" alphabet with the
+  specified number of characters taken off the front and
+  added on to the end of the string.
+  
+</p><p>Okay, it's time.  Write the functions and test them.
+    
+</p><p><strong>(d.2)</strong>
+
+Each partner should do this part independently:
+Make up a message without telling your partner what it is.
+Encrypt the message with a key of your choosing.  Copy the
+encrypted message into an Email message and send it to your
+partner; put the key in the subject line[*].  When you receive
+the Email your partner sent you, decrypt it using the key
+you received.
+</p><p> [*] It is not good security to include the key with the
+  message.  Of course that doesn't matter to us here in lab.
+  But in real life, this would be like writing your PIN on your ATM card. <strong>Key distribution</strong> is an issue in modern
+  cryptography; you need a secure and independent way to get
+  the key to the intended recipient of the ciphertext.
+</p><p><strong>(d.3) </strong>If you have time, you could check that the key is in
+  the correct range (0 to 25) or, better yet, make keys
+  greater than 25 "wrap around" so that, for example,
+  <code>Caesar_encrypt("cat", 29)</code>
+  returns the same thing as <code>Caesar_encrypt("cat", 3)</code>.
+  (Hint:  Use the % (mod) operator.)
+</p><p><strong>(e)</strong> Suppose you have a list of strings containing English text, like this:</p>
+<pre>[ "Four score and seven years ago, our fathers brought forth on",
+  "this continent a new nation, conceived in liberty and dedicated",
+  "to the proposition that all men are created equal.  Now we are",
+  "   engaged in a great 		civil war, testing whether that nation, or any",
+  "nation so conceived and so dedicated, can long endure.        " ]</pre>
+<p>There might be additional spacing or punctuation, as shown in the last two lines above.</p>
+<p><strong>(e.1) </strong>Write the function <code>print_line_numbers</code> that takes a list of strings and prints each string preceded by a line number:</p>
+<pre>1:  Four score and seven years ago, our fathers brought forth on
+2:  this continent a new nation, conceived in liberty and dedicated
+3:  to the proposition that all men are created equal.  Now we are
+4:     engaged in a great 		civil war, testing whether that nation, or any
+5:  nation so conceived and so dedicated, can long endure.</pre>
+<p>If there are 10 lines or more, the text won't line up nicely. Use the <code>format</code> method to print each line number in a five-character-wide field. (A nifty enhancement would be to make the line number field width exactly as long as it has to be to display the longest line number.)</p>
+<p><strong>(e.2) </strong>Write the function <code>stats</code> that takes a list of strings and prints statistics as follows:</p>
+<pre> 16824   lines in the list
+   483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line</pre>
+<p>Follow the formatting shown.</p>
+<p><strong>(e.3)</strong> Write the function <code>list_of_words</code> that takes a list of strings as above and returns a list of individual words with all white space and punctuation removed (except for apostrophes/single quotes).</p>
+<p>Look at the string operations and list operations to determine which of them you'll need for this task.</p>
+<p><strong>(f)</strong> Go back to your restaurants program from last week (modified to handle menus—lists of Dish structures). You may start with the code that either partner submitted. Getting up to speed with code that someone else initially wrote is a real-world programmer's skill; most real programming is modifying or extending an already-existing product. But it's also okay to start fresh and make the dishlist/menu modifications from scratch; sometimes that's the best approach, even when you already have some code that does the task, because if the existing code isn't solid—if it doesn't work as it should, or if it's too hard to understand—it makes no sense to try to build more code on that shaky foundation. Besides, it won't take you nearly as long the second time because you've already thought about the issues and you've already learned something from the mistakes you've made. (Donald Knuth of Stanford, who might be America's most famous computer scientist, once suggested this as a software development method: Write the code and get it working; then throw it away and write it again from scratch. His point was that people tend to cling to code they've already written, even if it's bad code that's dragging down their further development. Starting afresh frees the programmer from the burden of previous bad decisions and allows "getting it right this time.")</p>
+<p><strong>(f.1)</strong> Modify the program so that whenever a Restaurant is displayed, an additional line is included:</p>
+<pre>Average price:  $12.45.  Average calories:  455.6</pre>
+<p>Follow the formatting shown above.</p>
+<p><strong>(f.2)</strong> Add a command to the main menu that allows the user to search for (and display) all the restaurants that serve a specified cuisine along with the average price of (all the menuse of the restaurants that serve) that cuisine.</p>
+<p><strong>(f.3)</strong> Add a command to the main menu that allows the user to search for (and display) all the restaurants that serve a dish containing a given word or phrase. (This is more realistic than forcing the user to type the exact name of the dish; here, at least, the user can just type "fava beans" and match all the dishes that include that phrase.)</p>
+<p><strong>(g)</strong> <span style="font-variant:normal; letter-spacing:normal; line-height:normal; orphans:2; text-align:start; text-indent:0px; text-transform:none; white-space:normal; widows:2; word-spacing:0px; -webkit-text-size-adjust:auto; -webkit-text-stroke-width:0px; background-color:rgb(255, 255, 255); display:inline !important; float:none; font-family:AGaramond, Garamond, &#39;Times New Roman&#39;, serif; font-size:medium; color:rgb(0, 0, 0); font-style:normal; font-weight:normal; ">Remember that each partner must complete a partner evaluation form and submit it individually. Do this by connecting to eee.uci.edu and choosing the Survey tool for your lab section of ICS 31. Make sure you know your partner's name, first and last, so you can evaluate the right person. Some students have been forgetting to specify their partner's name on the survey; from now on, if you forget your partner's name we won't give you credit for completing the evaluation. Please complete your evaluation by the end of the day on Friday, or Saturday morning at the latest. It only takes a couple of minutes and not doing it hurts your participation score.</span></p>
+<p><strong>What to turn in:</strong> Submit via Checkmate two files: your  <code>lab6.py</code> file containing your solutions to parts (c), (d), and (e), and a separate Python file containing your modified restaurants program from part (f). Remember what we've said in previous labs about rereading the assignment and rerunning your Python files.</p>
+<p>Also remember that each student must complete a partner evaluation form by logging in to eee.uci.edu and selecting the Survey tool; these evaluations contribute to your class participation score. Get in the habit of doing this every week on Friday after you've submitted your assignment; the survey closes on Saturday. If you miss it, or if you forget to indicate your partner's name, you won't get credit for filling it out.  (Missing one may not have a significant effect on your grade, but these are easy points that everyone else is getting.)</p>
+<p>&nbsp;</p>
+<p><font face="Helvetica" size="1">Written by David G. Kay in Fall 2012 for ICS 31, based in part on assignments from ICS H21 and Informatics 41.</font></p>
+<br class="Apple-interchange-newline">
+<hr>
+<font><a href="http://www.ics.uci.edu/~kay/">David G. Kay</a>, <a href="mailto:kay@uci.edu">kay@uci.edu</a> </font><span><br>
+<font size="2">
+<!-- #BeginDate format:fcAm1a -->Sunday, November 4, 2012 2:15 PM<!-- #EndDate -->
+</font></span>
+
+
+</body></html>

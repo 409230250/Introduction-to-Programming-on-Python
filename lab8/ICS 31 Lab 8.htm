@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!-- saved from url=(0051)http://www.ics.uci.edu/~kay/courses/31/hw/lab8.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="GENERATOR" content="Globetrotter 1.1.1">
+<meta http-equiv="UPDATED" content="Tuesday, November 22, 2005 9:30 AM">
+<title>ICS 31 Lab 8</title>
+<meta http-equiv="X-GLOBETROTTERDATA" content="33CB8976">
+<meta http-equiv="DESCRIPTION" content="Homework Assignments for Informatics 41, the Informatics Core Course, using How to Design Programs by Felleisen, Findler, Flatt, and Krishnamurthi and Fluency by Snyder, at UC Irvine.">
+<meta http-equiv="COPYRIGHT" content="Copyright © 2001-2004 by David G. Kay.  All rights reserved.">
+<link href="./ICS 31 Lab 8_files/mainstyle.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+<p><font size="2">ICS 31 • DAVID G. KAY • UC IRVINE • FALL 2012</font></p>
+<p><font size="6"><b>Lab Assignment 8 </b></font>
+</p>
+<p>This assignment is due at the end of lab on Wednesday, December 5.
+This is another ten-day lab, and it will be our last lab assignment this quarter. Having it due Wednesday will give you a couple of extra days to go back and review what you need for the final.</p>
+<p>Reports from the lab indicate that some students are still not reading the lab problems carefully (if at all). You can't succeed (as a programmer or in this class) if you just skim the problem specifications to "get the general idea" (you can do that the first time through, but then you have to go back to read it in detail, and check back yet again when you run into questions or difficulties). We said this last week, but it bears repeating: Read the problem more
+  than once to be sure you understand precisely what your
+  code is supposed to do.  Come up with some examples that
+  show the code's behavior, inputs or arguments and their
+  expected results.  (These will become your assertions or
+  other tests.)  Follow the design recipe:  annotations of
+  the types of the parameters and the return value;
+  docstring comments to give a brief "purpose statement";
+  assertions or other tests.  The TAs and tutors won't be
+  able to help you unless and until you can show them
+these things.</p>
+<p>&nbsp;</p>
+<p><font><strong>Preparation</strong></font> (Do this part individually)</p>
+<p><font><strong>(1)</strong> We have <a href="http://www.ics.uci.edu/~kay/python/ICStunes0.py">posted some code</a> to implement a music-management program like the one we worked on in class last week and previously.</font> If you're using your own computer, download and run this code to make sure it works in your environment. Then you should read it. Reading code is an important skill, one that beginning programmers ignore too often. Sure, code isn't as easy to read as a novel; you need to go over it carefully and ask yourself what it does and how it works. Don't let this intimidate you! Just take it one function at a time.</p>
+<p><font><strong>(2) </strong></font>Read sections 6.1, 6.2, and 6.4, doing the practice problems as you go (but you can skip problem 6.10).</p>
+<p><strong>(3) </strong>Try Exercises 6.12, 6.13, 6.15, 6.16, and 6.18.</p>
+<p>&nbsp;</p>
+<p><font><strong>Lab Work</strong></font> (Do this part with your partner in lab)</p>
+<p><strong>(a)</strong> Choose a partner for this assignment and make sure the TA knows who your partner is. Remember that you'll choose a different partner for each lab assignment, so you'll work with this partner only this week. Make sure you know your partner's name (first and last) and contact information (Email or cellphone or whatever) in case one of you can't make it to lab.</p>
+<p><strong>(b)</strong> Prepare your <code>lab8.py</code> file as in previous labs, including a line like this: </p>
+<pre>#  Paula Programmer 11223344 and Andrew Anteater 44332211.  ICS 31 Lab sec 7.  Lab asst 8.
+</pre>
+<p><strong>(c)</strong> Download  the ICStunes program on the lab machine (or whatever machine you and your partner are using) and run it to make sure it works. As you work on this part, may your changes in (copies of) the <code>ICStunes.py</code> file you downloaded; use your <code>lab8.py</code> file for the other parts of this assignment.</p>
+<p><strong>(c.1)</strong> Write a function called<code> Song_str </code>that takes a song and returns a string containing that song's information in an easily readable format suitable for printing. You can choose the exact layout.</p>
+<p>Then write a function called<code> Album_str</code> that takes an album and returns a string containing that album's information (including the <code>Song_str</code> information for each song on the album) in an easily readable format suitable for printing.</p>
+<p>Test your functions by printing a couple of the sorted collections from the first part of the ICStunes file.</p>
+<p>Finally, write a function called <code>Songdisplay_str</code> that takes a Songdisplay and returns a string containing that information in an easily readable form suitable for printing. Test it using the results of <code>top_n_played</code> (located at the bottom of the ICStunes file).</p>
+<p><strong>(c.2)</strong> As we did previously with the albums' year, title, length, and ID, write a key function and a call to the <code>sort()</code> method to sort the collection<code> MUSIC</code> by the number of tracks on each album, lowest to highest; then print the resulting collection using<code> Album_str</code>. </p>
+<p>Next, sort the collection <code>MUSIC</code> by some <em>other</em> key to rearrange it. Then perform the number-of-tracks sorting task by calling<code> collection_sort</code> and then printing the resulting sorted collection.</p>
+<p><strong>(c.3)</strong>
+Write a funciton called <code>unplayed_songs</code> that takes a music collection (a list of albums) and returns a list of Songdisplays, one for each song that has never been played. Print the resulting list using <code>Songdisplay_str</code>. [Please note: It should go without saying at this point that the print statement does not go inside the <code>unplayed_songs</code> function. That function, as specified above, <em>returns</em> a list of Songdisplays; you print that result <em>in the calling program—where you call the function.</em> That's what this problem specifies.] </p>
+<p><strong>(c.4)</strong> Write a function called <code>length_from_songdisplay</code> that takes a Songdisplay and returns the length of the song. (This is quick and easy.)</p>
+<p><strong>(c.5)</strong> Write a function called <code>favorite_album</code> that takes a list of albums and returns the album that is the "favorite." We'll define the favorite album as the one that the user has spent the most time listening to.  [The total time the user has spent listening to an album is computed from the play counts and the song lengths.] </p>
+<p>Try to work out this function out together; that's how you learn. Use the following hints only if you're totally stuck (and then take them just one at a time): (i) Write a function <code>Song_listening_time</code> that takes a single song and returns the total number of seconds the user has spent listening to it (see above). (ii) Write a function <code>Album_listening_time</code> that takes an album and returns the total listening time for all the songs in an album together. (iii) Use <code>sort()</code> or <code>collection_sort</code> and the functions you defined to implement <code>favorite_album</code>.</p>
+<p>Figure out by hand which album in the collection<code> MUSIC</code> has the greatest listening time (it's okay to collaborate with your classmates outside of your partnership on this specific fact); then print (using<code> Album_str</code>, of course) the result of calling<code> favorite_album</code> on the collection<code> MUSIC</code> and see if it matches. [Hint: Songdisplays aren't involved in this part.]</p>
+<p><strong>(c.6) </strong>Generalize the<code> top_n_played </code>function (i.e, make it apply to a broader range of criteria than just play counts) as follows: Write a function called<code> top_n </code>that takes a list of albums and a number, as before, plus two additional parameters—(the name of) a function we can use as a sort key for comparing albums and a Boolean (that's true if you want the <em>n</em> highest values and false if you want the <em>n</em> lowest). Thus, you could use the new <code>top_n</code> to produce the same result as
+<code>top_n_played</code> by calling </p><pre><code>top_n(MUSIC, 3, play_count_from_songdisplay, True)</code></pre> 
+<p>and you could use it to produce the 10 shortest songs by calling
+</p><pre><code>top_n(MUSIC, 10, length_from_songdisplay, False)</code></pre> 
+<p><strong>(c.7)</strong> Total listening time isn't the only way of determining a favorite album. Generalize your <code>favorite_album</code> funciton by writing a function called  <code>favorite_album2</code> that takes a list of albums and a second argument—a "favorite measurement function" that  <code>favorite_album2</code> can apply to each album, comparing those results to determine the favorite. This call to   <code>favorite_album2</code> would behave the same way as a call to the original   <code>favorite_album</code> function:</p>
+<pre><code>favorite_album2(MUSIC, Album_listening_time)</code>
+</pre>
+<p>Write at least one example of a favorite measurement function other than total listening time. Then test your   <code>favorite_album2</code> function by applying that new function. [Hint: Songdisplays aren't involved in this part.]</p>
+<p><strong>(c.8)</strong> Music manager programs typically provide a search box into which you can type a keyword; the program then searches your collection for songs containing that keyword in their title, their artist, or their album's title. Write a function called  <code>collection_search</code> that behaves in the same way, taking a collection and a string as parameters and returning a list of Songdisplays of songs whose title, artist, or album title include that string. (We hope you notice that this task is similar to one you've already done in a recent lab.)</p>
+<p><strong>(c.9) </strong>Submit your <code>ICStunes.py</code> file (including your modifications and any of the original code that you didn't modify) via Checkmate. Running your file should demonstrate the operation of each part of this problem.</p>
+<p><strong>(d)</strong> Suppose a class  takes a multiple-choice test. We're going to experiment with alternative scoring mechanisms. For this problem you'll want to  say <code>from random import *</code> (and use the methods  <code>randrange</code> and  <code>choice</code>, which you can look up in the text or using  <code>help(random)</code>.)</p>
+<p>Let's say you have these three global constants defined (a complete program might determine these values from reading a file; we're just doing it this way for convenience):</p>
+<pre><code>NUMBER_OF_STUDENTS = 200
+NUMBER_OF_QUESTIONS = 20
+NUMBER_OF_CHOICES = 4  # 3 choices is A/B/C, 4 choices is A/B/C/D, 5 is A/B/C/D/E</code><code></code>
+</pre>
+<p><strong>(d.1)</strong> Write a function called <code>random_answers</code> that generates and returns a string of letters representing the correct answers to the test. (Of course answers to real tests aren't chosen randomly! We're just doing it this way to produce some test data to use when we score students' answers.) The length of the string should be the number of questions; each character in the string should be chosen randomly from the first <em>n</em> letters of the alphabet (where <em>n</em> is the number of choices. [Use the <code>choice()</code> method.]</p>
+<p>Call <code>random_answers</code> to generate a set of answers; assign the result to another global constant called <code>ANSWERS</code>.</p>
+<p><strong>(d.2) </strong>Ideally, we'd read  the students and their exam answers from a file. But to save you some time, we'll skip the file-reading part and just generate a random list of students and their answers. To start with, let's say that each student is represented by a string for the student's name or ID and a string representing the student's answer to each question. [Are you thinking of a namedtuple with two fields? You should be.]</p>
+<pre><code>Student = namedtuple('Student', 'name answers')
+s1 = Student('Jones, Jane', 'ABCCDAABAABCBBCACCAD')
+</code><code>s2 = Student('Smith, Sam',  'BADACCABADCCABDDCBAB')</code>
+</pre>
+<p>Write the function  <code>random_students</code> that uses the global constants above to generate and return a list of Student namedtuples. The size of the list is the number of students. The names can be randomly generated as you did in an earlier lab or, to save time, you can just generate a random ID number using  <code>randint()</code> or <code>randrange()</code> (<code>randrange()</code> generates a number in the range from its first argument up to but not including its second argument, in keeping with how it's typically done in Python). The string representing the student's answers should be generated precisely the same way as you generated the correct answers (so don't duplicate any code!).</p>
+<p><strong>(d.3)</strong> Modify the <code>Student</code> namedtuple to add two fields, one containing a list of scores on each question (1 if the student's answer matches the correct answer and 0 otherwise) and the other a number representing the sum of the list of question scores:</p>
+<pre><code>Student = namedtuple('Student', 'name answers scores total')
+s1 = Student('Jones, Jane', 'ABCCDAABAABCBBCACCAD', [1, 0, 1, 0, 0, 0, ...], 10)
+</code><code>s2 = Student('Smith, Sam',  'BADACCABADCCABDDCBAB', [1, 0, 0, 0, 0, 1, ...], 5)</code></pre>
+<p>Then modify your   <code>random_students</code> function to generate these student records with scores.</p>
+<p>Generate your list of random students and then sort it, highest total to lowest, and print the top 10 students' names. (You can print them all; we're just trying to save paper and screen space here.) Also print the mean (average) score.</p>
+<p><strong>(d.4) </strong>This is a conventional way to score multiple-choice exams. But you should expect the scores on this exam to be lower than on a typical exam: On a typical exam, students on the average are likelier to choose the correct answers than the wrong ones, but we generated our data completely at random. So let's think about how to generate more realistically distributed random data.</p>
+<p>We chose each student's answer to each question above by choosing randomly from (let's say) A, B, C, and D. If the correct answer is C, we can bias the selection towards C by choosing randomly from A, B, C, D, and C—adding another copy of the correct answer to the possible choices will increase the likelihood that a random choice from that group will be the correct answer. A group of A, B, C, D, C, and C should produce the correct answer about half the time, since half the choices in the group are correct. So every time we generate a student's answer to a question, we can add to the group of answer choices a few extra copies of the correct answer—let's say between 0 and twice the number of choices, so that with four choices we'd add from 0 to 8 copies of the correct choice—and choosing the student's answer randomly from that enhanced group of answer choices.</p>
+<p>We can do this by defining a function called   <code>generate_weighted_student_answer</code> that takes a string (one character, the correct answer) and returns a string (one character, the student answer chosen randomly from the enhanced group of alternatives as described above). Write  new functions called <code>random_answers2</code> and <code>random_students2</code> that are based on your orginal <code>random_answers</code> and <code>random_students</code> functions but that generates each student's answer to each question by calling <code>generate_weighted_student_answer</code>.</p>
+<p>Generate a new list of students using <code>random_students2</code> and then sort it, highest total to lowest, and print the top 10 students' names. Also print the mean (average) score; it should be higher than in part (d.3).</p>
+<p><strong>(d.5)</strong> An unconventional way to score this exam would be to assign different weights to different questions. The instructor might assign those weights in advance, based on his or her judgement of which questions are harder or more important. But an even more unconventional way to assign the weights would be to derive them from the students' answers: The questions that were harder (i.e., that fewer people answered correctly) are worth more points than the easier ones.</p>
+<p>One way to implement this would be to assign a number of points to each problem equal to the number of students who missed the problem. Write a function called <code>question_weights</code> that takes a list of Student records and returns a list of numbers, one number for each question on the test, where each number is the number of students who answered that question incorrectly. [Hint: It's helpful to attack complex data structures layer by layer. Try writing code that counts the number of wrong answers to a single question; then apply that in turn to all the questions.] Create another global constant that consists of the results of calling <code>question_weights</code> on your list of students from part (d.4).</p>
+<p>Then write a function called<code> Student_weighted_score</code> that takes a Student record (and uses the list of question weights you just defined) and returns that Student record with its total field changed to reflect that student's score based on his or her correct answers and the corresponding question weights. </p>
+<p>Then apply <code> Student_weighted_score</code> to each student on your list of students from part (d.4). Finally, sort the result, highest total to lowest, and print the top 10 students' names along with the mean (average) score.</p>
+<p><strong>(e)</strong> Some of the exercises in this section use <a href="http://bcs.wiley.com/he-bcs/Books?action=resource&bcsId=7001&itemId=0470618469&resourceId=26649">external files</a> provided by the author, which you can download from the <a href="http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=7001&itemId=0470618469">textbook web site</a>.
+</p><p>Do exercise 6.21.
+</p><p>Choose one exercise from 6.24 or 6.26.
+</p><p>Choose two exercises from 6.23, 6.25, 6.27, 6.30, and 6.32.
+
+</p><p><strong>(f)</strong> (optional) If you have some extra time after completing the previous parts of the lab, try one or more of the following:
+</p><ul>
+  <li>Add a menu-style user interface to ICStunes, similar to the interface we used for the restaurants program. </li>
+  <li>Add external files to ICStunes, along the same lines as we did with the restaurants program. We didn't require this or the user interface because you've done similar things before, but they're bread-and-butter everyday programming skills, so it wouldn't hurt to have more practice.</li>
+  <li>Implement a weighted scoring scheme that's less extreme than the one in (d.4): A problem is worth 1 point if over 75% of the class answer it correctly; it's worth 2 points if over 50% (but not over 75%) answer it correctly; it's worth 3 points if over 25% (but not over 50%) answer it correctly; it's worth 4 points otherwise. Score the same list of students using this scheme.</li>
+  <li>Devise some kind of visualization (perhaps a two-dimensional plot) to show how the same student scores using the three different scoring schemes. Try to produce a graphical answer to the question, Do the same students score highly under all three schemes?</li>
+</ul>
+<p><strong>(g)</strong> <span style="font-variant:normal; letter-spacing:normal; line-height:normal; orphans:2; text-align:start; text-indent:0px; text-transform:none; white-space:normal; widows:2; word-spacing:0px; -webkit-text-size-adjust:auto; -webkit-text-stroke-width:0px; background-color:rgb(255, 255, 255); display:inline !important; float:none; font-family:AGaramond, Garamond, &#39;Times New Roman&#39;, serif; font-size:medium; color:rgb(0, 0, 0); font-style:normal; font-weight:normal; ">Remember that each partner must complete a partner evaluation form and submit it individually. Do this by connecting to eee.uci.edu and choosing the Survey tool for your lab section of ICS 31. Make sure you know your partner's name, first and last, so you can evaluate the right person. Please complete your evaluation by the end of the day on Friday, or Saturday morning at the latest. </span></p>
+<p><strong>What to turn in:</strong> Submit via Checkmate  your  <code>ICStunes.py</code> file reflecting your work in part (c) and your <code>lab8.py</code> file containing your solutions to parts (d), (e), and (f). Remember what we've said in previous labs about rereading the assignment and rerunning your Python files.</p>
+<p>Also remember that each student must complete a partner evaluation form by logging in to eee.uci.edu and selecting the Survey tool; these evaluations contribute to your class participation score. </p>
+<p>&nbsp;</p>
+<p><font face="Helvetica" size="1">Written by David G. Kay in Fall 2012 for ICS 31, based in part on assignments from ICS H21 and Informatics 41.</font></p>
+<br class="Apple-interchange-newline">
+<hr>
+<font><a href="http://www.ics.uci.edu/~kay/">David G. Kay</a>, <a href="mailto:kay@uci.edu">kay@uci.edu</a> </font><span><br>
+<font size="2">
+<!-- #BeginDate format:fcAm1a -->Friday, November 30, 2012 6:52 AM<!-- #EndDate -->
+</font></span>
+
+
+</body></html>

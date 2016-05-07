@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!-- saved from url=(0051)http://www.ics.uci.edu/~kay/courses/31/hw/lab7.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="GENERATOR" content="Globetrotter 1.1.1">
+<meta http-equiv="UPDATED" content="Tuesday, November 22, 2005 9:30 AM">
+<title>ICS 31 Lab 7</title>
+<meta http-equiv="X-GLOBETROTTERDATA" content="33CB8976">
+<meta http-equiv="DESCRIPTION" content="Homework Assignments for Informatics 41, the Informatics Core Course, using How to Design Programs by Felleisen, Findler, Flatt, and Krishnamurthi and Fluency by Snyder, at UC Irvine.">
+<meta http-equiv="COPYRIGHT" content="Copyright © 2001-2004 by David G. Kay.  All rights reserved.">
+<link href="./ICS 31 Lab 7_files/mainstyle.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+<p><font size="2">ICS 31 • DAVID G. KAY • UC IRVINE • FALL 2012</font></p>
+<p><font size="6"><b>Lab Assignment 7 </b></font>
+</p>
+<p>This assignment is due at the end of lab on Wednesday, November 21, which is the day before Thanksgiving. Note also that Monday, November 12, is a university holiday.
+</p>
+<p>Choose a partner for this twelve-day assignment, someone you haven't worked with already. Choose someone whose Thanksgiving schedule is compatible with yours; if you won't be here for lab on the day before Thanksgiving (when the lab is due), pick someone who's able to work with you for a few extra out-of-lab hours before then.</p>
+<p>Some of the recent lab problems have gotten a little harder.
+Not longer, but more sophisticated, requiring a little more
+thought and design. That's normal and appropriate for this
+point in the course.  But it does require that you approach
+them thoughtfully and deliberately.  Read the problem more
+than once to be sure you understand precisely what your
+code is supposed to do.  Come up with some examples that
+show the code's behavior, inputs or arguments and their
+expected results.  (These will become your assertions or
+other tests.)  Follow the design recipe:  annotations of
+the types of the parameters and the return value;
+docstring comments to give a brief "purpose statement";
+assertions or other tests.  The TAs and tutors won't be
+able to help you unless and until you can show them
+these things.
+</p>
+<p>&nbsp;</p>
+<p><font><strong>Preparation</strong></font> (Do this part individually, before coming to lab)</p>
+<p><font><strong>(1) </strong></font>Re-read any assigned sections of the book that you may not have read yet, doing the practice problems as you go. </p>
+<p><strong>(2)</strong> Read section 5.3 on two-dimensional tables, which hasn't been assigned before.</p>
+<p><strong>(3) </strong>Do Exercises 5.23, 5.24, 5.25, and 5.26. Everyone should be able to do these independently; they will be good review for the midterm.</p>
+<p>&nbsp;</p>
+<p><font><strong>Lab Work</strong></font> (Do this part with your partner in lab)</p>
+<p><strong>(a)</strong> Choose a partner for this assignment (making note of the scheduling changes above) and make sure the TA knows who your partner is. Remember that you'll choose a different partner for each lab assignment, so you'll work with this partner only this week. Make sure you know your partner's name (first and last) and contact information (Email or cellphone or whatever) in case one of you can't make it to lab.</p>
+<p><strong>(b)</strong> Prepare your <code>lab7.py</code> file as in previous labs, including a line like this: </p>
+<pre>#  Paula Programmer 11223344 and Andrew Anteater 44332211.  ICS 31 Lab sec 7.  Lab asst 7.
+</pre>
+<p><strong>(c)</strong> Suppose we download from the EEE gradebook the names, IDs, and scores of everybody in ICS 31. And suppose we've hired some students to write a Python program that will produce a variety of graphs and statistics from this data. Of course these students will need realistic data to test their program. But do you want them to see <em>your</em> scores in this class? Even if your scores are high, you have a right to privacy in your educational records; even if you don't really care, federal law prohibits us from disclosing your information to anybody outside of the teaching staff without your permission. This kind of situation isn't unique to education, either. There are very strict privacy laws affecting health care information, for example. Yet there, too, researchers need access to realistic data. The problem is that the data contains information that identifies the data subjects.</p>
+<p>How do we resolve this? Actual ID numbers can be replaced with new, randomly generated numbers; that's not hard, because there's not much meaning in ID numbers. But if we randomly generate names, we'd like those names to <em>look like names</em> (that is, human names and not just random strings like Jjoeq Btfsplk). And that's what we're going to do.</p>
+<p>A quick internet search finds lists of common surnames (family names, last names) in America, common female given names (first names), and common male given names. We have three such files available for you to download:</p>
+<ul>
+  <li>Surnames: <a href="http://www.ics.uci.edu/~kay/surnames.txt"><code>http://www.ics.uci.edu/~kay/surnames.txt</code></a></li>
+  <li>Female names: <a href="http://www.ics.uci.edu/~kay/femalenames.txt"><code>http://www.ics.uci.edu/~kay/femalenames.txt</code></a></li>
+  <li>Male names: <a href="http://www.ics.uci.edu/~kay/malenames.txt"><code>http://www.ics.uci.edu/~kay/malenames.txt</code></a></li>
+</ul>
+<p>The original source of this data was <a href="http://names.mongabay.com/"><code>names.mongabay.com</code></a>. You can compare the data there with the contents of the three files above. You'll see that we've cleaned up and regularized the data quite a bit for you, but we've also left some of the processing for you. Partly that's because a theme of this week's lab is text and file processing. But it's also an extraordinarily practical computing skill to be able to take data in one form (e.g., as might be found on the internet) and manipulate or "massage" it into a form that's convenient to process (e.g., as in a Python program). More computing effort that you might think is devoted to this kind of mechanical but vital activity.</p>
+<p>So our goal is to generate strings of the form <code>"Lastname, Firstname"</code> where the last name is randomly chosen from the surnames list and the first name is randomly chosen from either the female names list or the male names list. </p>
+<p><strong>(c.1)</strong> Write a function called <code>random_names</code> that takes an integer and returns a list of that many strings, with each string a randomly generated name as described above.</p>
+<p>This function is the ultimate goal of part (c) of this lab assignment. If you  and your partner feelcomfortable designing a solution without further guidance, go right ahead; you'll learn the most that way (because you learn the most from making false starts, backing up, and trying again). But if you'd like a little more guidance, that's also fine. The remaining subparts of part (c) break the task down and give you some hints and approaches (though they still leave some of the work for you).</p>
+<p><strong>(c.2)</strong> To start, you'll need to read the three files of names into your program. You'll also notice that there's more data on each line of the name files than just the name. The first line of the surnames file, for example, is <code>"SMITH	1.006	2,501,922	1"</code>, which means that the surname Smith accounts for 1.006% of the surnames in America, which is an estimated 2,501,922 people, ranking number 1 (i.e., the first-most-popular surname).</p>
+<p>For this assignment, you can get by with just extracting the name and fixing its capitalization. You might at least think about how you'd store the other information, though. (We're just going to pick from the 1000 surnames randomly, but we might use the frequency percentages to pick more common names more often, which would be more realistic.)</p>
+<p><strong>(c.3)</strong>
+Your function <code>random_names</code> should call a function to generate a single random name—a random surname, a random choice of male or female, and a random first name chosen from that list.  It will be most convenient for your single-random-name function to call a function that takes one of the three name lists as a parameter and returns a name chosen at random from that list.</p>
+<p>To save you from looking it up, generating random integers requires importing the random library (<code>from random import randint</code>).  The <code>randint</code> function takes two arguments, the lower bound and upper bound of the range of the random number.  Remember that unlike most number ranges in Python, the ending value <code>randint</code> expects is <em>not</em> one greater than the top item of the range (i.e., the roll of a six-sided die would be <code>randint(1,6)</code>).
+</p>
+<p><strong>(d)</strong> You might be surprised to know that the Caesar cipher
+  we've been working with—one key for the whole message,
+  spaces and punctuation unchanged—is pretty easily breakable <em>by hand</em> with messages as short as one moderate-length
+  sentence.  People even do it for fun: Google <strong>cryptogram</strong>,
+  which is the name of that kind of puzzle.
+</p>
+<p><strong>(d.1)</strong> Now we're going to do some cryptanalysis of our own.
+  Write a function called <code>Caesar_break</code>
+  that takes a ciphertext string (encrypted using a Caesar cipher
+  as we did last week) and returns the plaintext for
+  that string, <em>without having the key</em>.
+</p>
+<p>We'll take a "brute force" approach:  </p>
+<ul>
+  <li>We'll generate
+    decryption alphabets for each of the 26 possible
+  keys.</li>
+  <li>We'll "decrypt" the ciphertext
+  using each of the 26 alphabets.  (Only one of these attempted decryptions will be the correct plaintext message, of course. But we don't know which one in advance. Trying all the possibilities is what we mean when we call this a "brute force" approach.)</li>
+  <li>For each of the 26
+    possibly-decrypted messages, we'll look each
+    possibly-decrypted word up in a dictionary. If the word is in the dictionary, then it's an English word; if there are a lot of English words in this possibly-decrypted message, it's likely that this message is the plaintext. So we need to
+    count up how many of the words in each possibly-decrypted message we find in the dictionary, saving
+    that total along with the message that produced it.
+  </li>
+  <li>Once we're done with all 26 possible decryptions, we should expect that the
+    possibly-decrypted message that had the most
+    "hits" in the dictionary is in fact the correctly
+    decrypted plaintext, and that's the message we
+    return.
+  </li>
+</ul>
+<p>To get the dictionary, download the file <a href="http://www.ics.uci.edu/~kay/wordlist.txt">http://www.ics.uci.edu/~kay/wordlist.txt</a> onto your machine and read it in to your program. Remove newline characters if necessary.</p>
+<p>[Here are some other suggestions and hints. Don't automatically read them; use them just as needed. Trying to think out the solution yourself is what builds the new neural pathways in your brain (i.e., that's how you learn). (i) Use your rotated-alphabet function from last week to help in making your list of 26 encryption/decryption tables. (ii) Choose a few sentences, encrypt them with your <code>Caesar_encrypt</code> function from last week, and use them to test your <code>Caesar_break</code> function. (iii) At some point you'll want to break your possibly-decrypted string into words, removing white space and punctuation, so you can look each word up in the dictionary. But also hang on to the original possibly-decrypted string with the spaces and punctuation, because that's the version you'll want to return if it's identified as the plaintext.]</p>
+<p><strong>(d.2)</strong> Each partner should do this part independently: Make up a message without telling your partner what it is. Encrypt the message with a key of your choosing. Copy the encrypted message into an Email message and send it to your partner, <em>without including the key</em>. When you receive the Email your partner sent you, decrypt it using the <code>Caesar_break</code> function.</p>
+<p><strong>(e)</strong> This Python code copies a file, line by line.  It presumes that the input and output files will be in the same directory (folder) as the code itself. (This is a restriction we could relax by using libraries that let us navigate around file systems and use the operating system's standard file dialog boxes. But those are topics for another day.)
+</p><pre><code>infile_name = input("Please enter the name of the file to copy: ")
+infile = open(infile_name, 'r')
+outfile_name = input("Please enter the name of the new copy:  ")
+outfile = open(outfile_name, 'w')
+for line in infile:
+    outfile.write(line)
+infile.close()
+outfile.close()</code>
+</pre>
+<p> <b>(e.1)</b> Copy this code into a new Python file on
+  your own system.  Package it into a function called <code>copy_file</code> that takes no parameters and returns no value (because it does all its work by prompting the user and reading and writing files). Test it out by copying a short text file.</p>
+<p>Then download the Project
+  Gutenberg version of <i>The Adventures of Sherlock Holmes</i> from <code><a href="http://www.gutenberg.org/cache/epub/1661/pg1661.txt">http://www.gutenberg.org/cache/epub/1661/pg1661.txt</a></code> (Project Gutenberg is a wonderful resource for non-copyright-protected texts).
+  Call your file-copying function to make a copy of this
+  file.  [Some problems have been reported with reading Project Gutenberg files. If you run into messages saying that Python can't decode a character, open the file with <code>open(infile_name, 'r', errors='ignore')</code>.]</p>
+<p><b>(e.2)</b> Modify your <code>copy_file</code> function to take one parameter, a string.  If the parameter is <code>'line numbers'</code>, the copied file includes line numbers at the start of each line :</p>
+<pre><code>    1: Project Gutenberg's The Adventures of Sherlock Holmes, by Arthur Conan Doyle
+    2: 
+    3: This eBook is for the use of anyone anywhere at no cost and with
+...
+13052: subscribe to our email newsletter to hear about new eBooks.</code></pre>
+<p>If the parameter is anything else, the function just copies the file as before.</p>
+<p>Note that the line number is formatted and right-justified
+  in a five-character field. You did this task last week, so 
+  you should be able to reuse most of last week's solution.
+</p>
+<p><strong>(e.3)</strong> If you examine the file from Project Gutenberg,
+    you see that it contains some "housekeeping" information at the
+    beginning and at the end.  You'll also see that the text itself starts
+    after a line beginning with <code>"***&nbsp;START"</code> and ends just before a line
+    beginning with <code>*"***&nbsp;END"</code>.
+    Modify your <code>copy_file</code> function so that if its parameter is <code>'Gutenberg trim'</code>
+    it will copy only the body of a Project Gutenberg
+file, omitting the "housekeeping" material at the front and end. (You may assume—you don't have to check—that if this parameter is specified, there will be a <code>"***&nbsp;START"</code> line and an <code>"***&nbsp;END"</code> line in the file.)</p>
+<p>For this problem, you might find it more convenient to read the entire file into memory at once—perhaps into a list of lines—but it isn't strictly necessary.
+</p>
+<p> <b>(e.4)</b> Modify your <code>copy_file</code> function so that if its parameter is <code>'statistics'</code> it will copy the file as before but also print out these statistics (which should be familiar) about the text in the file, following the formatting shown:</p>
+<pre> 16824   lines in the file
+   483   empty lines
+    53.7 average characters per line
+    65.9 average characters per non-empty line
+</pre>
+<p><strong>(f)</strong> <span style="font-variant:normal; letter-spacing:normal; line-height:normal; orphans:2; text-align:start; text-indent:0px; text-transform:none; white-space:normal; widows:2; word-spacing:0px; -webkit-text-size-adjust:auto; -webkit-text-stroke-width:0px; background-color:rgb(255, 255, 255); display:inline !important; float:none; font-family:AGaramond, Garamond, &#39;Times New Roman&#39;, serif; font-size:medium; color:rgb(0, 0, 0); font-style:normal; font-weight:normal; ">Remember that each partner must complete a partner evaluation form and submit it individually. Do this by connecting to eee.uci.edu and choosing the Survey tool for your lab section of ICS 31. Make sure you know your partner's name, first and last, so you can evaluate the right person. Please complete your evaluation by the end of the day on Friday, or Saturday morning at the latest. </span></p>
+<p><strong>What to turn in:</strong> Submit via Checkmate two files: your  <code>lab7.py</code> file containing your solutions to parts (c), (d), and (e). Remember what we've said in previous labs about rereading the assignment and rerunning your Python files.</p>
+<p>Also remember that each student must complete a partner evaluation form by logging in to eee.uci.edu and selecting the Survey tool; these evaluations contribute to your class participation score. </p>
+<p>&nbsp;</p>
+<p><font face="Helvetica" size="1">Written by David G. Kay in Fall 2012 for ICS 31, based in part on assignments from ICS H21 and Informatics 41.</font></p>
+<br class="Apple-interchange-newline">
+<hr>
+<font><a href="http://www.ics.uci.edu/~kay/">David G. Kay</a>, <a href="mailto:kay@uci.edu">kay@uci.edu</a> </font><span><br>
+<font size="2">
+<!-- #BeginDate format:fcAm1a -->Saturday, November 10, 2012 5:50 PM<!-- #EndDate -->
+</font></span>
+
+
+</body></html>

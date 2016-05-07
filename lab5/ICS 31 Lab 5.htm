@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!-- saved from url=(0051)http://www.ics.uci.edu/~kay/courses/31/hw/lab5.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="GENERATOR" content="Globetrotter 1.1.1">
+<meta http-equiv="UPDATED" content="Tuesday, November 22, 2005 9:30 AM">
+<title>ICS 31 Lab 5</title>
+<meta http-equiv="X-GLOBETROTTERDATA" content="33CB8976">
+<meta http-equiv="DESCRIPTION" content="Homework Assignments for Informatics 41, the Informatics Core Course, using How to Design Programs by Felleisen, Findler, Flatt, and Krishnamurthi and Fluency by Snyder, at UC Irvine.">
+<meta http-equiv="COPYRIGHT" content="Copyright © 2001-2004 by David G. Kay.  All rights reserved.">
+<link href="./ICS 31 Lab 5_files/mainstyle.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+<p><font size="2">ICS 31 • DAVID G. KAY • UC IRVINE • FALL 2012</font></p>
+<p><font size="6"><b>Lab Assignment 5 </b></font>
+</p>
+<p><font>This assignment is due at the end of lab on Friday, November 2</font>.</p>
+<p><font><strong>Preparation</strong></font> (Do this part individually, before coming to lab)</p>
+<p><font><strong>(1) </strong></font>Read  sections 4.1 and 4.2 in the textbook; some of this is material we've already seen. String manipulation isn't conceptually hard, but it requires meticulous attention to detail, so it's particularly important that you try the practice problems. At <a href="http://www.pythontutor.com/">www.pythontutor.com</a> you can run simple Python code and see the values change in memory; this is a helpful tool, but use it to <em>check</em> the work you do by hand. It's tempting just to copy in the code, watch it work, and then copy down the answer, but that totally defeats the purpose; learning happens when you <em>do</em> the problems, not when you see the answer.</p>
+<p><strong>(2)</strong> Do Exercises 4.12, 4.15, 4.17, and 4.18. Everyone should be able to do these independently. They don't require creative algorithmic thinking; you just need to look at the sections in the text to see how various language features work. If you run into trouble, check with your TA right away.</p>
+<p>&nbsp;</p>
+<p><font><strong>Lab Work</strong></font> (Do this part with your partner in lab)</p>
+<p><strong>(a)</strong> Choose a partner for this assignment and make sure the TA knows who your partner is. Remember that you'll choose a different partner for each lab assignment, so you'll work with this partner only this week. Make sure you know your partner's name (first and last) and contact information (Email or cellphone or whatever) in case one of you can't make it to lab.</p>
+<p><strong>(b)</strong> Prepare your <code>lab5.py</code> file as in previous labs, including a line like this: </p>
+<pre>#  Paula Programmer 11223344 and Andrew Anteater 44332211.  ICS 31 Lab sec 7.  Lab asst 5.
+</pre>
+<p><strong>(c)</strong> In last week's lab, we defined a Dish and we worked with lists of Dish objects. Let's call a list of Dishes a Menu and let's redefine a Restaurant to have a menu instead of just one best dish and price; we'll also define a couple of examples:</p>
+<pre>Restaurant = namedtuple('Restaurant', 'name cuisine phone menu')
+r1 = Restaurant('Thai Dishes', 'Thai', '334-4433', [Dish('Mee Krob', 12.50, 500),
+                                                    Dish('Larb Gai', 11.00, 450)])
+r2 = Restaurant('Taillevent', 'French', '01-44-95-15-01', 
+				[Dish('Homard Bleu', 45.00, 750),
+				 Dish('Tournedos Rossini', 65.00, 950),
+				 Dish("Selle d'Agneau", 60.00, 850)])				</pre>
+<p><strong>(c.1)</strong> Write a Python expression that defines <code>r3</code> as a Restaurant object for the French restaurant Pascal whose phone number is 940-752-0107; they serve escargots for $12.95 (250 cal.), poached salmon for $18.50 (550 cal.), rack of lamb for $24.00 (850 cal.), and marjolaine cake for $8.50 (950 cal.).</p>
+<p><strong>(c.2)</strong> Write the function <code>Restaurant_first_dish_name</code> that takes a Restaurant as its argument and returns the name of the first dish on the restaurant's menu. Remember to write the examples and expected results (as assert statements) before you write the function; do this for every function, whether we remind you or not. You should include code to check whether the menu has zero dishes and return the empty string if so.</p>
+<p><strong>(c.3)</strong> Write a function called <code>Restaurant_is_cheap</code> that takes two arguments, a Restaurant and a number, and returns True if the average price of the Restaurant's menu is less than or equal to the number.
+As you work on this, you'll find it essential to keep track of what part of the data you're working with: Is it a Restaurant object, a string, a number, a list, a Dish, ...? [Hint: Some of the functions you wrote last week can be used here.]</p>
+<p><strong>(c.4) </strong>In fact, counting the whole collection of Restaurants, there are four "layers" to the data in this example:</p>
+<ul>
+  <li>Collection, a list of Restaurant objects. Operations on Collections include <code>Collection_new</code>, <code>Collection_str</code>, <code>Collection_search_by_name</code>, and others from the Restaurants program, plus all the predefined operations on lists (like <code>len</code>, <code>sort</code>, and indexing).</li>
+  <li>Restaurant, a namedtuple with four fields (strings for the name, cuisine, and phone number, and a list for the menu). Operations on Restaurants include ones we defined like <code>Restaurant_str</code>, the automatically defined constructor function <code>Restaurant</code>, and predefined ones like <code>_replace</code>.</li>
+  <li>Menu (which we called Dishlist in last week's lab), a list of Dish objects. We could rename the operations we defined last week (<code>Menu_display</code>, <code>Menu_change_prices</code>, <code>Menu_average</code>, and so on); we also have the predefined list operations.</li>
+  <li>Dish, a namedtuple with three fields. We defined some operations on Dish objects last week.</li>
+  
+</ul>
+<p>It helps keep everything straight if you have a separate function for each layer. If we want, for example, to write the function <code>Collection_raise_prices</code> that takes a Collection and returns the Collection with the price of every dish at every restaurant raised by $2.50, it will be easiest of <code>Collection_raise_prices</code> calls, for  each Restaurant, a function <code>Restaurant_raise_prices</code> (that takes a restaurant and returns that restaurant with all its prices raised by $2.50). <code>Restaurant_raise_prices</code> in turn would call <code>Menu_raise_prices</code>, which takes a Menu, applies a function like <code>Dish_raise_250</code> to each Dish on the Menu, and returns the modified menu.</p>
+<p>Create a Collection from the three Restaurants defined above (plus more, if you like).</p>
+<p>Write the function <code>Collection_raise_prices</code> as described above. Simply raise each price by $2.50.</p>
+<p>Then, write the function <code>Collection_change_price</code> that works as described above but takes a second parameter, a percentage by which to change each price (as we did in last week's lab). Note that you'll have to keep passing the percentage along to each successive function, since it's not until you get to the bottom that you'll actually use that number.</p>
+<p><strong>(c.5)</strong> Write the function <code>Collection_select_cheap</code> that takes a Collection and a number and returns a list of all the Restaurants in the collection whose average price is less than or equal to that number. Use the functions described above where appropriate; you should also incorporate some definitions from last week's lab.</p>
+<p> <strong>(d)</strong> Now, let's try to incorporate menus into the full Restaurants program. You may start by downloading a clean copy of the <a href="http://www.ics.uci.edu/~kay/python/RP0.py">first version of the restaurants program</a>; if you're confident in the version you submitted last week (either partner), you may start with that version instead.</p>
+<p>Our advice about taking things slowly and methodically applies here as never before. Look back at last week's lab to remind yourself what we suggested.</p>
+<p>The original program has a section for Restaurants and a section for Collections. You'll want to add a section for Dishes and a section for Menus. In the Dish section, write the functions <code>Dish_str</code> (which you already wrote for last week's lab) and <code>Dish_get_info</code>, which works along the same lines as <code>Restaurant_get_info</code>.  </p>
+<p>Now, in the Menus section, write a <code>Menu_enter</code> function that repeatedly asks whether the user wants to add a Dish. If the user enters yes, the function prompts the user to create a Dish and adds it on to the growing list of dishes; when the user enters no, the function returns the compiled list of Dishes.  Now, where do we have to <em>call</em>  <code>Menu_enter</code> and take the Menu it returns, including it into the whole data structure in the appropriate place? In the Menus section, you'll also need someting to create a display string for the menu of dishes; you'll also need to find where in the program to <em>call</em> the function that generates the Menu display string.</p>
+<p>Next, incorporate your price-changing code into the program so that ultimately, the main menu gives the same option as in last week's lab<strong>:</strong></p>
+<p><code>c: Change prices for the dishes served</code></p>
+<p>When the user types <code>c</code>, the program should ask the user for an amount representing a percentage change in price, as before, andit should apply that price change to the prices for all the Dishes in all the Restaurants in the collection.</p>
+<p>Finally, if you have time, also incorporate a top-level command that selects restaurants with prices at or below a specified value, reusing the code you defined above where appropriate.</p>
+<p><strong>(e)</strong> Do Exercises 4.13, 4.14, and 4.19. Then do Problem 4.23.</p>
+<p>Finally, instead of the book's Problem 4.25, write a function called <code>letter_count</code> that has two strings as parameters.  The function returns the counts of certain letters in the first parameter; the second parameter is a string that specifies which letters to count.  Thus, <code>letter_count(some_message, 'aeiou')</code> would return counts of the vowels in the string <code>some_message</code> and <code>letter_count(some_message, ' \t\n')</code> would return counts of the wnite-space characters (space, tab, and newline). The function should return its counts as a list of Count namedtuples, where a Count namedtuple has two fields, letter and number.  Calling <code>letter_count('The cabbage has baggage', 'abcd')</code> should return <code>[Count('a',5), Count('b',3), Count('c',1), Count('d',0)]</code>.
+ </p>
+ <p>So how do you go about this?  You need to break it down into parts.  First, follow the design recipe: Write a function header with the types of the parameters and the type of the return value; write a docstring "purpose statement"; and write some examples of calls to this function and the expected results (in the form of assert statements).  That may take a few minutes, but it's time well spent at this stage.  Second, define the Count namedtuple.  Third, and this is always a good idea when you're designing a function that does the same thing (count occurrences) with multiple values (the vowels or whatever), design and write a function that does the task with one value (i.e., takes a string and a single character and returns a single Count namedtuple with the character and the number of times it occurs in the string); the body of this function can be one line that calls a string method covered in Chapter 4.  Fourth, write the body of the main <code>letter_count</code> function, where the task is to call the count-one-character function for each of the characters you're counting, building up the list of Counts and returning it at the end.
+ </p>
+ <p>For purposes of this assignment, treat upper and lower case characters as distinct; that will make the coding easier. But you should consider how you could modify your function to count upper and lower case versions of the same letter together.</p>
+<p><strong>(f)</strong><strong></strong> Remember that each partner must complete a partner evaluation form and submit it individually. Do this by connecting to eee.uci.edu and choosing the Survey tool for your lab section of ICS 31. Make sure you know your partner's name, first and last, so you can evaluate the right person. Some students have been forgetting to specify their partner's name on the survey; from now on, if you forget your partner's name we won't give you credit for completing the evaluation. Please complete your evaluation by the end of the day on Friday, or Saturday morning at the latest. It only takes a couple of minutes and not doing it hurts your participation score.
+   
+</p><p><strong>What to turn in:</strong> Submit via Checkmate two files: your  <code>lab5.py</code> file containing your solutions to parts (c) and (e), and a separate Python file containing your modified restaurants program from part (d). Remember what we've said in previous labs about rereading the assignment and rerunning your Python files.</p>
+<p>Also remember that each student must complete a partner evaluation form by logging in to eee.uci.edu and selecting the Survey tool; these evaluations contribute to your class participation score. Get in the habit of doing this every week on Friday after you've submitted your assignment; the survey closes on Saturday. If you miss it, or if you forget to indicate your partner's name, you won't get credit for filling it out.  (Missing one may not have a significant effect on your grade, but these are easy points that everyone else is getting.)
+</p><p style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; ">&nbsp;</p>
+<p style="color: rgb(0, 0, 0); font-family: Times; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; "><font face="Helvetica" size="1">Written by David G. Kay in Fall 2012 for ICS 31, based in part on assignments from ICS H21 and Informatics 41.</font></p>
+<br class="Apple-interchange-newline">
+<hr>
+<font><a href="http://www.ics.uci.edu/~kay/">David G. Kay</a>, <a href="mailto:kay@uci.edu">kay@uci.edu</a> </font><span><br>
+<font size="2">
+<!-- #BeginDate format:fcAm1a -->Sunday, October 28, 2012 6:06 PM<!-- #EndDate -->
+</font></span>
+
+
+</body></html>
